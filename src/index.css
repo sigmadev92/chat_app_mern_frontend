@@ -1,0 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Outfit:wght@100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Sedan+SC&display=swap");
+
+@import "tailwindcss";
+
+::-webkit-scrollbar {
+  display: none;
+}

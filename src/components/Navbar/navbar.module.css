@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(23, 124, 218);
+  padding: 0.4rem 2rem;
+}
+
+.heading {
+  color: white;
+  font-size: 14px;
+}
+.header ul {
+  display: flex;
+  gap: 1rem;
+  list-style-type: none;
+}
+.header a {
+  text-decoration: none;
+  color: white;
+  font-size: 12px;
+}
