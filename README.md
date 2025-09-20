@@ -17,15 +17,25 @@ This project provides a user interface to chat and share media with different pe
 
 ## Tools
 
-Vite + React + Javascript
-Routing
-Global State Management
-Tailwind CSS
-Google Fonts
+<li>Vite + React + Javascript</li>
+<li>Routing - react-router-dom</li>
+<li>Global State Management - react-redux, @reduxjs/toolkit</li>
+<li>Tailwind CSS</li>
+<li>Google Fonts - Outfit</li>
 
-## Start Commands
+## Setup and Start
 
+### Install commands
+
+<p>This will install all the dependencies in package.json</p>
 <code>
     npm install 
+</code>
+<br>
+
+### run the server
+
+<p>This command will start the development server</p>
+<code>
     npm run dev
 </code>

@@ -1,13 +1,13 @@
 import React from "react";
 
-function Home() {
+function Dashboard() {
   return (
     <section>
       <div>
-        <h2>Home</h2>
+        <h2>Dashboard</h2>
       </div>
     </section>
   );
 }
 
-export default Home;
+export default Dashboard;

@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(23, 124, 218);
+  background-color: rgba(23, 124, 218, 0.354);
   padding: 0.4rem 2rem;
 }
 

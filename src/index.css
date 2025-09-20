@@ -5,3 +5,25 @@
 ::-webkit-scrollbar {
   display: none;
 }
+
+.app2s {
+  background-image: url("https://www.shutterstock.com/image-vector/communication-dialogue-virtual-networking-ecommerce-260nw-2391193377.jpg");
+  background-size: cover;
+  background-position: left;
+  filter: brightness(70%);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
+section {
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+section > div > h2 {
+  color: white;
+  padding: 0.3rem 1rem;
+  font-size: 12px;
+}
