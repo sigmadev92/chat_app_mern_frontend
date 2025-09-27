@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(23, 124, 218, 0.354);
+  background-color: transparent;
   padding: 0.4rem 2rem;
 }
 
@@ -13,10 +13,15 @@
 .header ul {
   display: flex;
   gap: 1rem;
+  align-items: center;
   list-style-type: none;
 }
 .header a {
   text-decoration: none;
   color: white;
   font-size: 12px;
+}
+
+.header button {
+  cursor: pointer;
 }

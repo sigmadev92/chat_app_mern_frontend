@@ -10,11 +10,27 @@ import RecoverPswrd from "./pages/ForgotPassword/RecoverPswrd";
 import { Toaster } from "react-hot-toast";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import { useDispatch } from "react-redux";
-import { fetchLoginStatus } from "./redux_toolkit/reducers/authReducer";
+import {
+  authSelector,
+  fetchLoginStatus,
+} from "./redux_toolkit/reducers/authReducer";
+import { useSelector } from "react-redux";
+import { initSocket } from "./webSockets/socketService";
+import { fetchUnseenMessages } from "./redux_toolkit/reducers/chatReducer";
+
 function App() {
   const dispatch = useDispatch();
+
+  const { user } = useSelector(authSelector);
+
+  useEffect(() => {
+    if (user) {
+      initSocket(user._id, dispatch);
+    }
+  }, [user, dispatch]);
   useEffect(() => {
     dispatch(fetchLoginStatus());
+    dispatch(fetchUnseenMessages());
     //eslint-disable-next-line
   }, []);
   const router = createBrowserRouter([
@@ -35,7 +51,8 @@ function App() {
   return (
     <section className="app">
       <div className="app2s"></div>
-      <RouterProvider router={router} />
+      <RouterProvider router={router}></RouterProvider>
+
       <Toaster
         position="top-right"
         reverseOrder={false}

@@ -1,22 +1,43 @@
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import styles from "./navbar.module.css";
-import {
-  authActions,
-  authSelector,
-} from "../../redux_toolkit/reducers/authReducer";
+import { authSelector } from "../../redux_toolkit/reducers/authReducer";
 import { useSelector, useDispatch } from "react-redux";
-import toast from "react-hot-toast";
-import { usersURL } from "../../functions/urls/backendAPI";
+import {
+  BellIcon,
+  BoltIcon,
+  BookOpenIcon,
+  HouseHeartIcon,
+  HouseIcon,
+  LogInIcon,
+  LogOutIcon,
+  MessageSquareTextIcon,
+  NotebookPenIcon,
+  UserPlus2Icon,
+} from "lucide-react";
+import Ask from "../Overlays/Ask";
+import {
+  askSelector,
+  askActions,
+} from "../../redux_toolkit/reducers/AskReducer";
+import { useState } from "react";
+import Messages from "../Overlays/Messages";
+import Notes from "../Overlays/Notes";
+import Notifications from "../Overlays/Notifications";
+import FindPeople from "../Overlays/FindPeople";
+import { chatSelector } from "../../redux_toolkit/reducers/chatReducer";
+// import { useSelector } from "react-redux";
 function Navbar() {
   const { loggedIn } = useSelector(authSelector);
-  const navigate = useNavigate();
+  const { opened } = useSelector(askSelector);
+  const [messagesDiv, setMessages] = useState(false);
+  const [notifications, setNotifications] = useState(false);
+  const [notes, setNotes] = useState(false);
+  const [findPeople, setFindPeople] = useState(false);
+  const { totalUnseenMessages } = useSelector(chatSelector);
+  const { onlineUsers, currentlyChattingTo } = useSelector(chatSelector);
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
-  const logoutUser = async () => {
-    await fetch(`${usersURL}/logout`);
-    dispatch(authActions.logoutUser());
-    navigate("/action/login");
-    toast.success("Logged out successfully");
-  };
+
   return (
     <>
       <header className={styles.header}>
@@ -24,36 +45,102 @@ function Navbar() {
           <div className={styles.logo}></div>
           <div className={styles.text}>
             <h1 className={styles.heading}>F3 chat</h1>
-            <h2></h2>
+            <p>
+              <button
+                className="text-white"
+                onClick={() =>
+                  console.log(
+                    totalUnseenMessages,
+                    onlineUsers,
+                    currentlyChattingTo
+                  )
+                }
+              >
+                click
+              </button>
+            </p>
           </div>
         </div>
         <nav>
-          <ul>
+          <ul className="">
             <li>
-              <NavLink to={"/"}>Home</NavLink>
+              <NavLink
+                to="/"
+                className={({ isActive }) => (isActive ? "underline" : "")}
+              >
+                {!loggedIn ? (
+                  <HouseIcon className="text-white h-[1rem] hover:text-[#14d6e3]" />
+                ) : (
+                  <HouseHeartIcon className="text-white h-[1rem] hover:text-pink-500" />
+                )}
+              </NavLink>
             </li>
 
             {loggedIn ? (
               <>
                 <li>
-                  <NavLink to={"/dashboard"}>Dashboard</NavLink>
+                  <button onClick={() => setFindPeople(true)}>
+                    <UserPlus2Icon className="text-white h-[1rem] hover:text-[#0dbeea]" />
+                  </button>
                 </li>
-                <li onClick={logoutUser}>
-                  <NavLink>Logout</NavLink>
+                <li>
+                  <button onClick={() => setNotes(true)}>
+                    <NotebookPenIcon className="text-white h-[1rem] hover:text-[#0dbeea]" />
+                  </button>
+                </li>
+                <li className="relative">
+                  <button onClick={() => setMessages(true)}>
+                    <MessageSquareTextIcon className="text-white h-[1rem] hover:text-[#0dbeea] " />
+                  </button>
+                  {Object.keys(totalUnseenMessages)?.length > 0 && (
+                    <div className="absolute top-4 right-2 text-[0.8rem] flex justify-center items-center bg-[#ff00d0] rounded-2xl h-[1rem] w-[1rem]">
+                      {Object.keys(totalUnseenMessages).length > 9
+                        ? "9+"
+                        : Object.keys(totalUnseenMessages).length}
+                    </div>
+                  )}
+                </li>
+                <li>
+                  <button onClick={() => setNotifications(true)}>
+                    <BellIcon className="text-white h-[1rem] hover:text-[#0dbeea] " />
+                  </button>
+                </li>
+                <li>
+                  <NavLink to={"/dashboard"}>
+                    <BoltIcon className="text-white h-[1rem] hover:text-[#0dbeea]" />
+                  </NavLink>
+                </li>
+                <li>
+                  <button
+                    onClick={() =>
+                      dispatch(askActions.setPopup("Do you want to Logout?"))
+                    }
+                  >
+                    <LogOutIcon className="text-white h-[1rem] hover:text-[#dd0c75] cursor-pointer" />
+                  </button>
+                </li>
+                <li>
+                  <NavLink to={"/docs"}>
+                    <BookOpenIcon className="text-white h-[1rem] hover:text-[#e616f5]" />
+                  </NavLink>
                 </li>
               </>
             ) : (
               <li>
-                <NavLink to={"/action/login"}>Login</NavLink>
+                <NavLink to={"/action/login"}>
+                  <LogInIcon className="text-white h-[1rem] hover:text-[#0dea14]" />
+                </NavLink>
               </li>
             )}
-            <li>
-              <NavLink to={"/docs"}>Docs</NavLink>
-            </li>
           </ul>
         </nav>
       </header>
       <Outlet />
+      {opened && <Ask />}
+      {messagesDiv && <Messages close={setMessages} />}
+      {notes && <Notes close={setNotes} />}
+      {notifications && <Notifications close={setNotifications} />}
+      {findPeople && <FindPeople close={setFindPeople} />}
     </>
   );
 }

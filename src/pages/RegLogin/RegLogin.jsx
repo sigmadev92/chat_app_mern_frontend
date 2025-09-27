@@ -1,5 +1,5 @@
 import { Navigate, NavLink, useNavigate, useParams } from "react-router-dom";
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   verifyFullNameField,
   verifyPasswrod,
@@ -11,6 +11,7 @@ import {
   authSelector,
 } from "../../redux_toolkit/reducers/authReducer";
 import { useSelector, useDispatch } from "react-redux";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 function RegLogin() {
   const { loggedIn } = useSelector(authSelector);
   const dispatch = useDispatch();
@@ -66,8 +67,10 @@ function RegLogin() {
       if (data.success) {
         if (action_type === "login") {
           toast.success("Login Successful");
-          dispatch(authActions.setAuth(data.user));
-          navigate("/action/home");
+          dispatch(
+            authActions.setAuth({ user: data.user, token: data.f3Token })
+          );
+          navigate("/");
         } else {
           toast.success("Registration Successful");
           navigate("/action/login");
@@ -99,10 +102,10 @@ function RegLogin() {
           </div>
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col gap-[1rem] items-center "
+            className="flex flex-col gap-[1rem] items-center"
           >
             {action_type === "register" && (
-              <div className="">
+              <div className="w-[95%] pr-4">
                 <label
                   htmlFor="fullName"
                   className="block mb-2 text-sm font-medium text-white"
@@ -114,14 +117,14 @@ function RegLogin() {
                   type="text"
                   id="fullName"
                   value={fullName}
-                  className="outline-none border-b-[1px] text-white border-b-[#fff] placeholder:text-[12px] placeholder:text-[#ffffff9b]"
+                  className="outline-none ml-3 border-b-[1px] text-white border-b-[#fff] placeholder:text-[12px] placeholder:text-[#ffffff9b] w-[98%]"
                   placeholder="full name"
                   required
                   name="fullName"
                 />
               </div>
             )}
-            <div className="">
+            <div className="w-[95%] pr-4">
               <label
                 htmlFor="email"
                 className="block mb-2 text-sm font-medium text-white"
@@ -131,7 +134,7 @@ function RegLogin() {
               <input
                 type="email"
                 id="email"
-                className="outline-none border-b-[1px] text-white border-b-[#fff] placeholder:text-[12px] placeholder:text-[#ffffff9b]"
+                className="outline-none ml-3 border-b-[1px] text-white border-b-[#fff] placeholder:text-[12px] placeholder:text-[#ffffff9b] w-[98%]"
                 placeholder="email"
                 required
                 value={email}
@@ -139,7 +142,7 @@ function RegLogin() {
                 name="email"
               />
             </div>
-            <div className="relative ">
+            <div className="relative w-[95%] pr-4">
               <label
                 htmlFor="email"
                 className="block mb-2 text-sm font-medium text-white"
@@ -148,7 +151,7 @@ function RegLogin() {
               </label>
               <input
                 type={isPasswordVisible ? "text" : "password"}
-                className="outline-none border-b-[1px] text-white border-b-[#fff] placeholder:text-[12px] placeholder:text-[#ffffff9f]"
+                className="outline-none ml-3 border-b-[1px] text-white border-b-[#fff] placeholder:text-[12px] placeholder:text-[#ffffff9b] w-[98%] "
                 placeholder="password"
                 required
                 name="password"
@@ -156,19 +159,21 @@ function RegLogin() {
                 onChange={handleChange}
               />
               {!isPasswordVisible ? (
-                <img
-                  alt="eye"
-                  src="https://cdn-icons-png.flaticon.com/512/9759/9759376.png"
-                  className="absolute top-[2rem] right-0 w-[20px] bg-transparent cursor-pointer"
+                <button
+                  type="button"
                   onClick={() => setPasswordVisible(true)}
-                />
+                  className="absolute top-8 right-2"
+                >
+                  <EyeOffIcon className="h-[1rem] text-white" />
+                </button>
               ) : (
-                <img
-                  alt="eye"
-                  src="https://cdn-icons-png.freepik.com/512/7610/7610127.png"
-                  className="absolute top-[2rem] right-0 w-[20px] cursor-pointer"
+                <button
+                  type="button"
                   onClick={() => setPasswordVisible(false)}
-                />
+                  className="absolute top-8 right-0"
+                >
+                  <EyeIcon className="h-[1rem] text-white" />
+                </button>
               )}
             </div>
 
@@ -197,7 +202,7 @@ function RegLogin() {
                 </NavLink>
               )}
             </div>
-            <div className="flex justify-end ">
+            <div className="">
               <NavLink to={"/password/recover"} className={" hover:underline"}>
                 Forgot Password
               </NavLink>

@@ -1,11 +1,17 @@
-import React from "react";
-
+import { authSelector } from "../../redux_toolkit/reducers/authReducer";
+import { useSelector } from "react-redux";
 function Home() {
+  const { loggedIn, user } = useSelector(authSelector);
   return (
     <section>
       <div>
-        <h2>Home</h2>
+        <h2>{loggedIn ? "Hey, " + user?.fullName.split(" ")[0] : "Home"}</h2>
       </div>
+      {loggedIn && (
+        <>
+          <div></div>
+        </>
+      )}
     </section>
   );
 }
