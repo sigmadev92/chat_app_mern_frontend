@@ -223,11 +223,15 @@ function Messages({ close }) {
                     <h3 className="mb-[2px]">
                       {currentlyChattingTo.user.fullName}
                     </h3>
-                    <div className="flex gap-1 items-center">
-                      {onlineUsers.includes(currentlyChattingTo.user._id) && (
-                        <div className="h-[5px] w-[5px] bg-green-400 rounded-2xl"></div>
+                    <div className="flex gap-1 items-center text-[0.5rem]">
+                      {onlineUsers.includes(currentlyChattingTo.user._id) ? (
+                        <>
+                          <div className="h-[5px] w-[5px] bg-green-400 rounded-2xl"></div>
+                          <p>Active Now</p>
+                        </>
+                      ) : (
+                        <p>Last seen Yesterday</p>
                       )}{" "}
-                      <p className="text-[0.5rem]">Active Now</p>
                     </div>
                   </div>
                   <div className="w-[30%] flex justify-between items-center text-white">
@@ -250,23 +254,39 @@ function Messages({ close }) {
                   {currentlyChattingTo.messages.length > 0 ? (
                     <ul className="list-none w-full px-1.5">
                       {currentlyChattingTo.messages.map((msg) => (
-                        <li key={msg._id} className="text-[0.6rem] mb-0.5">
+                        <li key={msg._id} className="text-[0.7rem] mb-[0.5rem]">
                           {msg.senderId === user._id ? (
                             <div className="flex justify-end">
-                              <div
-                                className="bg-blue-500 w-fit max-w-[70%] p-1 rounded-[0.1rem] rounded-l-[0.4rem]"
-                                onClick={() => console.log(currentlyChattingTo)}
-                              >
-                                {msg.text}
+                              <div className="max-w-[70%]">
+                                <div className="bg-blue-500 max-w-full p-1 rounded-[0.1rem] rounded-l-[0.4rem]">
+                                  {msg.text}
+                                </div>
+                                <div>
+                                  <span className="text-[0.6rem]">
+                                    {
+                                      new Date(msg.createdAt)
+                                        .toLocaleString()
+                                        .split(", ")[1]
+                                    }
+                                  </span>
+                                </div>
                               </div>
                             </div>
                           ) : (
                             <div>
-                              <div
-                                className="bg-pink-500 w-fit max-w-[70%] p-1 rounded-[0.1rem] rounded-r-[0.4rem]"
-                                onClick={() => console.log(currentlyChattingTo)}
-                              >
-                                {msg.text}
+                              <div className="w-fit max-w-[70%]">
+                                <div className="bg-pink-500 p-1 rounded-[0.1rem] rounded-r-[0.4rem]">
+                                  {msg.text}
+                                </div>
+                                <div>
+                                  <span className="text-[0.6rem]">
+                                    {
+                                      new Date(msg.createdAt)
+                                        .toLocaleString()
+                                        .split(", ")[1]
+                                    }
+                                  </span>
+                                </div>
                               </div>
                             </div>
                           )}

@@ -92,7 +92,7 @@ function RegLogin() {
       </div>
       <div className="w-[80%] flex justify-between mx-auto rounded-4xl p-4 mt-20 ">
         <div className="w-[45%]"></div>
-        <div className="w-[30%] bg-[#4f3a805c] p-2 rounded-2xl">
+        <div className="w-[50%] md:w-[30%] bg-[#4f3a805c] p-2 rounded-2xl">
           <div className="text-center mb-4 text-white text-3xl">
             <span>F3</span>
             <span>Chat | </span>
