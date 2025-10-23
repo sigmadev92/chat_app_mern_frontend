@@ -17,6 +17,7 @@ import {
 import { useSelector } from "react-redux";
 import { initSocket } from "./webSockets/socketService";
 import { fetchUnseenMessages } from "./redux_toolkit/reducers/chatReducer";
+import { themeAction } from "./redux_toolkit/reducers/themeReducer";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,15 +25,18 @@ function App() {
   const { user } = useSelector(authSelector);
 
   useEffect(() => {
-    if (user) {
-      initSocket(user._id, dispatch);
-    }
-  }, [user, dispatch]);
-  useEffect(() => {
+    const savedTheme = localStorage.getItem("f3_theme") || "light";
+    dispatch(themeAction.setTheme(savedTheme));
     dispatch(fetchLoginStatus());
-    dispatch(fetchUnseenMessages());
+
     //eslint-disable-next-line
   }, []);
+  useEffect(() => {
+    if (user) {
+      initSocket(user._id, dispatch);
+      dispatch(fetchUnseenMessages());
+    }
+  }, [user, dispatch]);
   const router = createBrowserRouter([
     {
       path: "/",
@@ -49,9 +53,8 @@ function App() {
     },
   ]);
   return (
-    <section className="app">
-      <div className="app2s"></div>
-      <RouterProvider router={router}></RouterProvider>
+    <div>
+      <RouterProvider router={router} />
 
       <Toaster
         position="top-right"
@@ -64,7 +67,7 @@ function App() {
           },
         }}
       />
-    </section>
+    </div>
   );
 }
 

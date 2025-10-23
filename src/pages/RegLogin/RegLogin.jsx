@@ -86,17 +86,17 @@ function RegLogin() {
     return <Navigate to={"/"} />;
   }
   return (
-    <section>
+    <section className="dark:bg-black bg-amber-50 h-full">
       <div>
         <h2>{mapAuth[action_type]}</h2>
       </div>
-      <div className="w-[80%] flex justify-between mx-auto rounded-4xl p-4 mt-20 ">
-        <div className="w-[45%]"></div>
-        <div className="w-[50%] md:w-[30%] bg-[#4f3a805c] p-2 rounded-2xl">
-          <div className="text-center mb-4 text-white text-3xl">
+      <div className="md:w-[80%]  flex justify-center md:justify-between mx-auto rounded-4xl ">
+        <div className="hidden md:block md:w-[45%]"></div>
+        <div className="w-full max-w-[300px] md:w-[30%] bg-white text-black dark:bg-[#4f3a805c] dark:text-white p-2 rounded-2xl ">
+          <div className="text-center mb-4 text-3xl">
             <span>F3</span>
             <span>Chat | </span>
-            <span className="text-[#e8edf0] text-[17px] font-bold">
+            <span className=" text-[17px] font-bold">
               {mapAuth[action_type]}
             </span>
           </div>
@@ -108,7 +108,7 @@ function RegLogin() {
               <div className="w-[95%] pr-4">
                 <label
                   htmlFor="fullName"
-                  className="block mb-2 text-sm font-medium text-white"
+                  className="block mb-2 text-sm font-medium "
                 >
                   Your Name
                 </label>
@@ -117,7 +117,7 @@ function RegLogin() {
                   type="text"
                   id="fullName"
                   value={fullName}
-                  className="outline-none ml-3 border-b-[1px] text-white border-b-[#fff] placeholder:text-[12px] placeholder:text-[#ffffff9b] w-[98%]"
+                  className="outline-none ml-3 border-b-[1px]  border-b-[#000] dark:border-b-white placeholder:text-[12px] w-[98%]"
                   placeholder="full name"
                   required
                   name="fullName"
@@ -127,15 +127,15 @@ function RegLogin() {
             <div className="w-[95%] pr-4">
               <label
                 htmlFor="email"
-                className="block mb-2 text-sm font-medium text-white"
+                className="block mb-2 text-sm font-medium "
               >
                 Your email
               </label>
               <input
                 type="email"
                 id="email"
-                className="outline-none ml-3 border-b-[1px] text-white border-b-[#fff] placeholder:text-[12px] placeholder:text-[#ffffff9b] w-[98%]"
-                placeholder="email"
+                className="outline-none ml-3 border-b-[1px]  border-b-[#000] dark:border-b-white placeholder:text-[12px] w-[98%]"
+                placeholder="Email"
                 required
                 value={email}
                 onChange={handleChange}
@@ -144,16 +144,17 @@ function RegLogin() {
             </div>
             <div className="relative w-[95%] pr-4">
               <label
-                htmlFor="email"
-                className="block mb-2 text-sm font-medium text-white"
+                htmlFor="password"
+                className="block mb-2 text-sm font-medium "
               >
                 Your Password
               </label>
               <input
                 type={isPasswordVisible ? "text" : "password"}
-                className="outline-none ml-3 border-b-[1px] text-white border-b-[#fff] placeholder:text-[12px] placeholder:text-[#ffffff9b] w-[98%] "
-                placeholder="password"
+                className="outline-none ml-3 border-b-[1px] border-b-[#000] dark:border-b-white placeholder:text-[12px]  w-[98%] "
+                placeholder="Password"
                 required
+                id="password"
                 name="password"
                 value={password}
                 onChange={handleChange}
@@ -164,7 +165,7 @@ function RegLogin() {
                   onClick={() => setPasswordVisible(true)}
                   className="absolute top-8 right-2"
                 >
-                  <EyeOffIcon className="h-[1rem] text-white" />
+                  <EyeOffIcon className="h-[1rem] " />
                 </button>
               ) : (
                 <button
@@ -172,19 +173,19 @@ function RegLogin() {
                   onClick={() => setPasswordVisible(false)}
                   className="absolute top-8 right-0"
                 >
-                  <EyeIcon className="h-[1rem] text-white" />
+                  <EyeIcon className="h-[1rem]" />
                 </button>
               )}
             </div>
 
             <button
               type="submit"
-              className="text-white cursor-pointer outline-1 hover:text-blue-600  font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-1 text-center"
+              className=" cursor-pointer outline-1 hover:text-blue-600  font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-1 text-center"
             >
               {mapAuth[action_type]}
             </button>
           </form>
-          <div className="footer flex flex-col gap-0.5rem text-white text-[12px] mt-2 px-3">
+          <div className="footer flex flex-col gap-0.5rem  text-[12px] mt-2 px-3">
             <div>
               {action_type === "register" ? (
                 <NavLink

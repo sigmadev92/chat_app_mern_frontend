@@ -1,41 +1,42 @@
-# Chat Application UI
+# F3 Chat Application - UI
 
-This project provides a user interface to chat and share media with different people.
+## Built using VITE, ReactJs and TailwindCss
 
-## Features
+## Table of Content
 
-<li>Register and Login</li>
-<li>JWT Authentication</li>
-<li>Will receive mails</li>
-<li>Change / Recover Passwords</li>
-<li>Edit profiles</li>
-<li>Send / Edit messages</li>
-<li>Can Delete Account</li>
-<li>Send media like images</li>
-<li>Routing</li>
-<li>Persistence</li>
+0. Overview
+1. Useful Links
+2. Features
+3. Tech Stack
+4. Start Commands
+5. Folder Structure
+6. Troubleshooting
+7. Deployment
 
-## Tools
+### Overview
 
-<li>Vite + React + Javascript</li>
-<li>Routing - react-router-dom</li>
-<li>Global State Management - react-redux, @reduxjs/toolkit</li>
-<li>Tailwind CSS</li>
-<li>Google Fonts - Outfit</li>
+This file covers the UI of the F3 chat app built using MERN stack. The application integrates features of social media as well as
+note making.
 
-## Setup and Start
+### Useful Links
 
-### Install commands
+- Sources:
+- Deployed Link :
 
-<p>This will install all the dependencies in package.json</p>
-<code>
-    npm install 
-</code>
-<br>
+### features
 
-### run the server
+- Real time Chats
+- Note making
+- Authentication using JWT
+- Dark mode Toggle
+- Popup Notifications
 
-<p>This command will start the development server</p>
-<code>
-    npm run dev
-</code>
+### Tech Stack
+
+- Vite
+- React JS
+- React Router <code>react-router-dom</code> for routing
+- Redux toolkit <code>react-redux</code>,<code>@reduxjs/toolkit</code> for global state management
+- TailwindCss for styling
+- Icons <code>lucide-react</code>
+- Popup Notifcations - <code>react-hot-toast</code>
