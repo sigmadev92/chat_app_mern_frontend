@@ -1,18 +1,17 @@
 import { authSelector } from "../../redux_toolkit/reducers/authReducer";
 import { useSelector } from "react-redux";
+import PageHeader from "../../components/other/PageHeader";
+import Left from "./components/Left";
+import Right from "./components/Right";
 function Dashboard() {
-  const { user, token } = useSelector(authSelector);
+  const { user } = useSelector(authSelector);
   return (
-    <section>
-      <div>
-        <h2>Dashboard</h2>
-      </div>
-      <div className="w-[45%] ml-3 text-white ">
-        <p>User Details</p>
-        <p> Id : {user._id}</p>
-        <p>Name : {user.fullName}</p>
-        <p>Email : {user.email}</p>
-        <p>Token : {token.slice(0, 23)}</p>
+    <section className="dark:bg-gray-900 text-black dark:text-white h-full">
+      <PageHeader name={"Dashboard"} />
+      <div className="flex px-5 justify-between">
+        <Left user={user} />
+
+        <Right />
       </div>
     </section>
   );

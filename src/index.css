@@ -14,14 +14,13 @@ body,
   height: 100vh;
 }
 
-section > div > h2 {
-  color: white;
-  padding: 0.3rem 1rem;
-  font-size: 12px;
-}
-
 button {
   cursor: pointer;
+}
+
+.btn {
+  padding: 0.2rem 0.3rem;
+  border-radius: 0.3rem;
 }
 
 main {

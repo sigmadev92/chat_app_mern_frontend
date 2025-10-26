@@ -4,12 +4,14 @@ import { askActions } from "../../redux_toolkit/reducers/AskReducer";
 import {
   BellIcon,
   BoltIcon,
-  LogOutIcon,
+  HouseHeartIcon,
   MessageSquareTextIcon,
   NotebookPenIcon,
   UserPlus2Icon,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { authSelector } from "../../redux_toolkit/reducers/authReducer";
+import { useState } from "react";
 
 const LoggedInNavLinks = ({
   setFindPeople,
@@ -18,9 +20,20 @@ const LoggedInNavLinks = ({
   setNotifications,
 }) => {
   const { totalUnseenMessages } = useSelector(chatSelector);
+  const { user } = useSelector(authSelector);
   const dispatch = useDispatch();
+  const [visible, setVisible] = useState(false);
   return (
     <>
+      <li>
+        <NavLink to={"/"}>
+          <HouseHeartIcon
+            className="text-black dark:text-white hover:text-pink-500"
+            size={20}
+          />
+        </NavLink>
+      </li>
+
       <li>
         <button onClick={() => setFindPeople(true)}>
           <UserPlus2Icon
@@ -40,7 +53,7 @@ const LoggedInNavLinks = ({
       <li className="relative">
         <button onClick={() => setMessages(true)}>
           <MessageSquareTextIcon
-            className="text-white hover:text-[#0dbeea]"
+            className="text-black dark:text-white hover:text-[#0dbeea]"
             size={20}
           />
         </button>
@@ -54,25 +67,42 @@ const LoggedInNavLinks = ({
       </li>
       <li>
         <button onClick={() => setNotifications(true)}>
-          <BellIcon className="text-white  hover:text-[#0dbeea] " size={20} />
+          <BellIcon
+            className="text-black dark:text-white  hover:text-[#0dbeea] "
+            size={20}
+          />
         </button>
       </li>
       <li>
         <NavLink to={"/dashboard"}>
-          <BoltIcon className="text-white  hover:text-[#0dbeea]" size={20} />
-        </NavLink>
-      </li>
-      <li>
-        <button
-          onClick={() =>
-            dispatch(askActions.setPopup("Do you want to Logout?"))
-          }
-        >
-          <LogOutIcon
-            className="text-white  hover:text-[#dd0c75] cursor-pointer"
+          <BoltIcon
+            className="text-black dark:text-white  hover:text-[#0dbeea]"
             size={20}
           />
+        </NavLink>
+      </li>
+      <li className="bg-gray-500 h-[1.5rem] w-[1.5rem] rounded-full flex justify-center items-center relative">
+        <button className="text-[0.8rem] text-white">
+          {/* {user?.fullName[0]} */}
+          <img
+            className="w-full"
+            src={user?.profileImg?.url}
+            onClick={() => setVisible((prev) => !prev)}
+            alt="asas"
+          />
         </button>
+        {visible && (
+          <div className="absolute top-6 right-0 dark:bg-gray-500 bg-white  p-2 rounded-md border-1 dark:border-white border-black">
+            <button
+              className=" font-bold text-[0.8rem] dark:text-white text-black hover:bg-amber-400 dark:hover:bg-black px-2"
+              onClick={() =>
+                dispatch(askActions.setPopup("Do you want to Logout?"))
+              }
+            >
+              Logout
+            </button>
+          </div>
+        )}
       </li>
     </>
   );

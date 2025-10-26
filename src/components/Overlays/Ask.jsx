@@ -22,7 +22,7 @@ function Ask() {
   };
   return (
     <section className="absolute top-0 left-0 w-[100%] h-[100vh] bg-[#18161878] z-10 flex justify-center items-center">
-      <div className="outline-1 rounded-2xl p-[2rem] shadow-lg shadow-[#1489ef] ">
+      <div className="bg-[#000000ee] outline-1 rounded-2xl p-[2rem] shadow-lg shadow-[#1489ef] ">
         <h3 className="text-white my-2">{question}</h3>
         <div className="flex gap-3 mt-3">
           <button

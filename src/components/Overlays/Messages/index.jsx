@@ -10,13 +10,14 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { messagesURL, usersURL } from "../../functions/urls/backendAPI";
-import { authSelector } from "../../redux_toolkit/reducers/authReducer";
+import { messagesURL, usersURL } from "../../../functions/urls/backendAPI";
 import toast from "react-hot-toast";
+
+import { authSelector } from "../../../redux_toolkit/reducers/authReducer";
 import {
   chatSelector,
   chatActions,
-} from "../../redux_toolkit/reducers/chatReducer";
+} from "../../../redux_toolkit/reducers/chatReducer";
 
 function Messages({ close }) {
   const scrollableDivRef = useRef(null);
@@ -175,17 +176,17 @@ function Messages({ close }) {
               </div>
             ) : (
               <div>
-                <ul className="flex flex-col list-none text-white">
+                <ul className="list-none text-white">
                   {users.map((userItem, idx) => (
                     <li
                       key={idx}
                       className=" text-[12px] flex items-center gap-1 cursor-pointer hover:bg-[#5384ee96] p-1"
                       onClick={() => handleChatClickNormal(userItem)}
                     >
+                      <h3>{userItem.fullName}</h3>
                       {onlineUsers.includes(userItem._id) && (
                         <div className="h-[5px] w-[5px] bg-green-400 rounded-2xl"></div>
                       )}
-                      <h3>{userItem.fullName}</h3>
                     </li>
                   ))}
                 </ul>

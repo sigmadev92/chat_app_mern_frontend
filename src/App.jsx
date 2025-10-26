@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
 import RegLogin from "./pages/RegLogin/RegLogin";
 import EditProfile from "./pages/EditProfile/EditProfile";
-import Doc from "./pages/Documentation/Doc";
 import NotFound from "./pages/NotFound";
 import RecoverPswrd from "./pages/ForgotPassword/RecoverPswrd";
 import { Toaster } from "react-hot-toast";
@@ -46,8 +45,7 @@ function App() {
         { index: true, element: <Home /> },
         { path: "action/:action_type", element: <RegLogin /> },
         { path: "password/recover", element: <RecoverPswrd /> },
-        { path: "edit-profile", element: <EditProfile /> },
-        { path: "docs", element: <Doc /> },
+        { path: "public/profile", element: <EditProfile /> },
         { path: "dashboard", element: <Dashboard /> },
       ],
     },

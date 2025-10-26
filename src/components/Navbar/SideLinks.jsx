@@ -11,14 +11,14 @@ const SideLinks = () => {
   return (
     <div className="flex gap-2">
       <a
-        className="dark:bg-white p-1 rounded-full bg-gray-400"
+        className="dark:bg-white p-1 rounded-full bg-gray-300"
         href="https://github.com/sigmadev92/chat_app_mern_frontend"
         target="blank"
       >
         <Github size={15} color={theme === "dark" ? "black" : "white"} />
       </a>
       <button
-        className="bg-gray-400 dark:bg-white p-1 rounded-full"
+        className="bg-gray-300 dark:bg-white p-1 rounded-full"
         onClick={() => dispatch(themeAction.toggleTheme())}
       >
         {theme === "dark" ? (

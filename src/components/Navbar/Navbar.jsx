@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import styles from "./navbar.module.css";
 
 import { useSelector } from "react-redux";
@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import Ask from "../Overlays/Ask";
 import { askSelector } from "../../redux_toolkit/reducers/AskReducer";
 import { useState } from "react";
-import Messages from "../Overlays/Messages";
+import Messages from "../Overlays/Messages/index.jsx";
 import Notes from "../Overlays/Notes";
 import Notifications from "../Overlays/Notifications";
 import FindPeople from "../Overlays/FindPeople";
