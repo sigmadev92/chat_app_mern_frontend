@@ -21,8 +21,13 @@ button {
 .btn {
   padding: 0.2rem 0.3rem;
   border-radius: 0.3rem;
+  cursor: pointer;
 }
 
 main {
   height: calc(100vh - 70px);
+}
+
+.hide {
+  display: none;
 }

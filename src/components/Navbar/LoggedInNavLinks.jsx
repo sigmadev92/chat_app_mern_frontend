@@ -12,6 +12,7 @@ import {
 import { NavLink } from "react-router-dom";
 import { authSelector } from "../../redux_toolkit/reducers/authReducer";
 import { useState } from "react";
+import { imagesURL } from "../../functions/urls/cloudinary";
 
 const LoggedInNavLinks = ({
   setFindPeople,
@@ -82,15 +83,13 @@ const LoggedInNavLinks = ({
         </NavLink>
       </li>
       <li className="bg-gray-500 h-[1.5rem] w-[1.5rem] rounded-full flex justify-center items-center relative">
-        <button className="text-[0.8rem] text-white">
-          {/* {user?.fullName[0]} */}
-          <img
-            className="w-full"
-            src={user?.profileImg?.url}
-            onClick={() => setVisible((prev) => !prev)}
-            alt="asas"
-          />
-        </button>
+        {/* {user?.fullName[0]} */}
+        <img
+          className="w-full h-full cursor-pointer rounded-full"
+          src={`${imagesURL}/${user.profilePic}`}
+          onClick={() => setVisible((prev) => !prev)}
+          alt="asas"
+        />
         {visible && (
           <div className="absolute top-6 right-0 dark:bg-gray-500 bg-white  p-2 rounded-md border-1 dark:border-white border-black">
             <button

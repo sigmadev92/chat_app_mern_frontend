@@ -1,11 +1,26 @@
 import { IdCard, MailIcon, SquarePenIcon, UserPenIcon } from "lucide-react";
 
+import { authActions } from "../../redux_toolkit/reducers/authReducer";
+import { useDispatch } from "react-redux";
+import { defaultProfile } from "../../functions/urls/images";
+
 const ProfileCard = ({ fullName, email, userId, profilePic }) => {
+  const dispatch = useDispatch();
+  const updateProfileBtn = () => {
+    dispatch(authActions.setUpdateProfileDiv(true));
+  };
   return (
     <div className="w-[200px] shadow-md shadow-amber-600 flex flex-col rounded-md p-2 dark:">
       <div className="h-[150px] w-full relative">
-        <img src={profilePic} className="h-full w-full outline-1" />
-        <button className="absolute bottom-3 right-[1rem] dark:text-white text-blue-400 p-1 rounded-full hover:bg-amber-100 dark:hover:bg-blue-400 ">
+        <img
+          src={profilePic || defaultProfile}
+          className="h-full w-full outline-1"
+          alt="your-profile-pic"
+        />
+        <button
+          className="absolute bottom-3 right-[1rem] dark:text-white bg-white text-blue-400 p-1 rounded-full hover:bg-amber-100 dark:hover:bg-blue-400 "
+          onClick={updateProfileBtn}
+        >
           <SquarePenIcon color="#000" size={20} />
         </button>
       </div>

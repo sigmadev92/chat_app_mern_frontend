@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { usersURL } from "../../functions/urls/backendAPI";
+import { imagesURL } from "../../functions/urls/cloudinary";
 
 const initialState = {
   loggedIn: false,
   user: null,
   token: null,
+  updateProfileDiv: false,
 };
 
 const fetchLoginStatus = createAsyncThunk("fetchLoginStatus", async () => {
@@ -17,7 +19,7 @@ const fetchLoginStatus = createAsyncThunk("fetchLoginStatus", async () => {
   if (data.success) {
     return {
       success: true,
-      user: data.user,
+      user: { ...data.user, profilePic: `${imagesURL}/${data.user._id}` },
       token: data.token,
     };
   } else
@@ -32,6 +34,10 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    setProfilePic: (state, action) => {
+      state.user.profilePic = action.payload;
+      state.updateProfileDiv = false;
+    },
     setAuth: (state, action) => {
       state.loggedIn = true;
       state.user = action.payload.user;
@@ -41,6 +47,10 @@ const authSlice = createSlice({
       state.loggedIn = false;
       state.user = null;
       state.token = null;
+    },
+    setUpdateProfileDiv: (state, action) => {
+      state.updateProfileDiv = action.payload;
+      console.log(action.payload);
     },
   },
   extraReducers: (builder) => {

@@ -13,7 +13,9 @@ import FindPeople from "../Overlays/FindPeople";
 
 import SiteInfo from "./SiteInfo";
 import Nav from "./Nav";
-// import { useSelector } from "react-redux";
+import { authSelector } from "../../redux_toolkit/reducers/authReducer.js";
+import UpdateProfile from "../Overlays/UpdateProfile.jsx";
+
 function Navbar() {
   const { opened } = useSelector(askSelector);
   const [messagesDiv, setMessages] = useState(false);
@@ -21,6 +23,7 @@ function Navbar() {
   const [notes, setNotes] = useState(false);
   const [findPeople, setFindPeople] = useState(false);
 
+  const { updateProfileDiv, user } = useSelector(authSelector);
   // const { onlineUsers, currentlyChattingTo } = useSelector(chatSelector);
   // const navigate = useNavigate();
   return (
@@ -45,6 +48,7 @@ function Navbar() {
       {notes && <Notes close={setNotes} />}
       {notifications && <Notifications close={setNotifications} />}
       {findPeople && <FindPeople close={setFindPeople} />}
+      {updateProfileDiv && <UpdateProfile user={user} />}
     </>
   );
 }

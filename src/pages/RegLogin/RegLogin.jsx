@@ -12,6 +12,7 @@ import {
 } from "../../redux_toolkit/reducers/authReducer";
 import { useSelector, useDispatch } from "react-redux";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { imagesURL } from "../../functions/urls/cloudinary";
 function RegLogin() {
   const { loggedIn } = useSelector(authSelector);
   const dispatch = useDispatch();
@@ -68,7 +69,13 @@ function RegLogin() {
         if (action_type === "login") {
           toast.success("Login Successful");
           dispatch(
-            authActions.setAuth({ user: data.user, token: data.f3Token })
+            authActions.setAuth({
+              user: {
+                ...data.user,
+                profilePic: `${imagesURL}/${data.user._id}`,
+              },
+              token: data.f3Token,
+            })
           );
           navigate("/");
         } else {
