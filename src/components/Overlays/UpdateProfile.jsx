@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { usersURL } from "../../functions/urls/backendAPI";
 import { authActions } from "../../redux_toolkit/reducers/authReducer";
 import { useDispatch } from "react-redux";
-import { defaultProfile } from "../../functions/urls/images";
+import { _default } from "../../functions/urls/images";
 const UpdateProfile = ({ user }) => {
   const [profilePic, setProfilePic] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -29,16 +29,16 @@ const UpdateProfile = ({ user }) => {
         body: formData,
         credentials: "include",
       });
+
       if (!response.ok) {
         toast.error("Something went wrong");
         return;
       }
       const data = await response.json();
-
+      console.log(data);
       if (data.success) {
+        dispatch(authActions.setProfilePic(data.imageUrl));
         toast.success("Profile Pic changed successfully");
-
-        dispatch(authActions.setProfilePic(data.imageName));
       }
     } catch (error) {
       console.log(error);
@@ -56,7 +56,8 @@ const UpdateProfile = ({ user }) => {
           <div className="h-[200px] w-[200px]">
             <img
               className="w-full h-full"
-              src={user.profilePic || defaultProfile}
+              src={user.profilePic || _default.profile_Pic}
+              alt="Your image"
             />
           </div>
         )}

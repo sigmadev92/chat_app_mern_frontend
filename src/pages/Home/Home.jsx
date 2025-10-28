@@ -4,7 +4,7 @@ function Home() {
   const { loggedIn, user } = useSelector(authSelector);
   return (
     <section className="h-full bg-white dark:bg-[#000000dd]">
-      <div className="p-2">
+      <div className="p-2 text-black dark:text-white">
         <h2 className="text-sm">
           {loggedIn ? "Hey, " + user?.fullName.split(" ")[0] : "Home"}
         </h2>

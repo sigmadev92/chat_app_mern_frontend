@@ -5,6 +5,7 @@ import {
   BellIcon,
   BoltIcon,
   HouseHeartIcon,
+  LogOutIcon,
   MessageSquareTextIcon,
   NotebookPenIcon,
   UserPlus2Icon,
@@ -12,7 +13,7 @@ import {
 import { NavLink } from "react-router-dom";
 import { authSelector } from "../../redux_toolkit/reducers/authReducer";
 import { useState } from "react";
-import { imagesURL } from "../../functions/urls/cloudinary";
+import { _default } from "../../functions/urls/images";
 
 const LoggedInNavLinks = ({
   setFindPeople,
@@ -86,19 +87,22 @@ const LoggedInNavLinks = ({
         {/* {user?.fullName[0]} */}
         <img
           className="w-full h-full cursor-pointer rounded-full"
-          src={`${imagesURL}/${user.profilePic}`}
-          onClick={() => setVisible((prev) => !prev)}
-          alt="asas"
+          src={user.profilePic || _default.profile_Pic}
+          onClick={() => {
+            setVisible((prev) => !prev);
+            console.log(user.profilePic, _default.profile_Pic);
+          }}
+          alt="nav-icon"
         />
         {visible && (
           <div className="absolute top-6 right-0 dark:bg-gray-500 bg-white  p-2 rounded-md border-1 dark:border-white border-black">
             <button
-              className=" font-bold text-[0.8rem] dark:text-white text-black hover:bg-amber-400 dark:hover:bg-black px-2"
+              className=" font-bold text-[0.8rem] dark:text-white text-black hover:bg-amber-200 dark:hover:bg-gray-600 px-2 py-1 flex gap-1 items-center"
               onClick={() =>
                 dispatch(askActions.setPopup("Do you want to Logout?"))
               }
             >
-              Logout
+              Logout <LogOutIcon size={15} />
             </button>
           </div>
         )}

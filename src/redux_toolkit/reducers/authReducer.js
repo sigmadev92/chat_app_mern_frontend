@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { usersURL } from "../../functions/urls/backendAPI";
-import { imagesURL } from "../../functions/urls/cloudinary";
 
 const initialState = {
   loggedIn: false,
@@ -19,7 +18,9 @@ const fetchLoginStatus = createAsyncThunk("fetchLoginStatus", async () => {
   if (data.success) {
     return {
       success: true,
-      user: { ...data.user, profilePic: `${imagesURL}/${data.user._id}` },
+      user: {
+        ...data.user,
+      },
       token: data.token,
     };
   } else

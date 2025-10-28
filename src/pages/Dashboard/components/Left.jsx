@@ -1,15 +1,18 @@
 import ProfileCard from "../../../components/other/ProfileCard";
-import { imagesURL } from "../../../functions/urls/cloudinary";
 
 const Left = ({ user }) => {
   const { fullName, email, _id, profilePic } = user;
+
   return (
     <div>
+      {!profilePic && (
+        <p className="text-sm text-red-400">You don't have a profile pic yet</p>
+      )}
       <ProfileCard
         fullName={fullName}
         email={email}
         userId={_id}
-        profilePic={`${imagesURL}/${profilePic}`}
+        profilePic={profilePic}
       />
     </div>
   );

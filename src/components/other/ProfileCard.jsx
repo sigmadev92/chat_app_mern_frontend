@@ -2,7 +2,7 @@ import { IdCard, MailIcon, SquarePenIcon, UserPenIcon } from "lucide-react";
 
 import { authActions } from "../../redux_toolkit/reducers/authReducer";
 import { useDispatch } from "react-redux";
-import { defaultProfile } from "../../functions/urls/images";
+import { _default } from "../../functions/urls/images";
 
 const ProfileCard = ({ fullName, email, userId, profilePic }) => {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const ProfileCard = ({ fullName, email, userId, profilePic }) => {
     <div className="w-[200px] shadow-md shadow-amber-600 flex flex-col rounded-md p-2 dark:">
       <div className="h-[150px] w-full relative">
         <img
-          src={profilePic || defaultProfile}
+          src={profilePic || _default.profile_Pic}
           className="h-full w-full outline-1"
           alt="your-profile-pic"
         />
