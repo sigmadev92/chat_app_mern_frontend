@@ -11,7 +11,7 @@ function Dashboard() {
       <div className="flex px-5 justify-between">
         <Left user={user} />
 
-        <Right />
+        <Right user={user} />
       </div>
     </section>
   );

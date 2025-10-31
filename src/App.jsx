@@ -45,7 +45,7 @@ function App() {
         { index: true, element: <Home /> },
         { path: "action/:action_type", element: <RegLogin /> },
         { path: "password/recover", element: <RecoverPswrd /> },
-        { path: "public/profile", element: <EditProfile /> },
+        { path: "public/profile/:userId", element: <EditProfile /> },
         { path: "dashboard", element: <Dashboard /> },
       ],
     },

@@ -6,6 +6,7 @@ const initialState = {
   user: null,
   token: null,
   updateProfileDiv: false,
+  updateProfilePicDiv: false,
 };
 
 const fetchLoginStatus = createAsyncThunk("fetchLoginStatus", async () => {
@@ -37,12 +38,14 @@ const authSlice = createSlice({
   reducers: {
     setProfilePic: (state, action) => {
       state.user.profilePic = action.payload;
-      state.updateProfileDiv = false;
     },
     setAuth: (state, action) => {
       state.loggedIn = true;
       state.user = action.payload.user;
       state.token = action.payload.token;
+    },
+    updateUser: (state, action) => {
+      state.user = action.payload;
     },
     logoutUser: (state) => {
       state.loggedIn = false;
@@ -51,7 +54,9 @@ const authSlice = createSlice({
     },
     setUpdateProfileDiv: (state, action) => {
       state.updateProfileDiv = action.payload;
-      console.log(action.payload);
+    },
+    setUpdateProfilePicDiv: (state, action) => {
+      state.updateProfilePicDiv = action.payload;
     },
   },
   extraReducers: (builder) => {

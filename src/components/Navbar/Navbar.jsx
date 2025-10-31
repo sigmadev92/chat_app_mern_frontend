@@ -15,6 +15,7 @@ import SiteInfo from "./SiteInfo";
 import Nav from "./Nav";
 import { authSelector } from "../../redux_toolkit/reducers/authReducer.js";
 import UpdateProfile from "../Overlays/UpdateProfile.jsx";
+import UpdateProfilePic from "../Overlays/UpdateProfilePic.jsx";
 
 function Navbar() {
   const { opened } = useSelector(askSelector);
@@ -23,7 +24,8 @@ function Navbar() {
   const [notes, setNotes] = useState(false);
   const [findPeople, setFindPeople] = useState(false);
 
-  const { updateProfileDiv, user } = useSelector(authSelector);
+  const { updateProfilePicDiv, user, updateProfileDiv } =
+    useSelector(authSelector);
   // const { onlineUsers, currentlyChattingTo } = useSelector(chatSelector);
   // const navigate = useNavigate();
   return (
@@ -48,6 +50,7 @@ function Navbar() {
       {notes && <Notes close={setNotes} />}
       {notifications && <Notifications close={setNotifications} />}
       {findPeople && <FindPeople close={setFindPeople} />}
+      {updateProfilePicDiv && <UpdateProfilePic user={user} />}
       {updateProfileDiv && <UpdateProfile user={user} />}
     </>
   );

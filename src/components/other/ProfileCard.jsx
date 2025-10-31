@@ -6,6 +6,9 @@ import { _default } from "../../functions/urls/images";
 
 const ProfileCard = ({ fullName, email, userId, profilePic }) => {
   const dispatch = useDispatch();
+  const updateProfilePicBtn = () => {
+    dispatch(authActions.setUpdateProfilePicDiv(true));
+  };
   const updateProfileBtn = () => {
     dispatch(authActions.setUpdateProfileDiv(true));
   };
@@ -18,8 +21,8 @@ const ProfileCard = ({ fullName, email, userId, profilePic }) => {
           alt="your-profile-pic"
         />
         <button
-          className="absolute bottom-3 right-[1rem] dark:text-white bg-white text-blue-400 p-1 rounded-full hover:bg-amber-100 dark:hover:bg-blue-400 "
-          onClick={updateProfileBtn}
+          className="absolute bottom-0 right-0 dark:text-white bg-white text-blue-400 p-1 rounded-full hover:bg-amber-100 dark:hover:bg-blue-400 "
+          onClick={updateProfilePicBtn}
         >
           <SquarePenIcon color="#000" size={20} />
         </button>
@@ -27,7 +30,10 @@ const ProfileCard = ({ fullName, email, userId, profilePic }) => {
       <div className="mt-1">
         <div className="flex justify-between items-center">
           <h3 className="font-bold">{fullName}</h3>{" "}
-          <button className="dark:text-white text-blue-400 p-1 rounded-full hover:bg-amber-100 dark:hover:bg-blue-400">
+          <button
+            className="dark:text-white text-blue-400 p-1 rounded-full hover:bg-amber-100 dark:hover:bg-blue-400"
+            onClick={updateProfileBtn}
+          >
             <UserPenIcon size={20} />
           </button>
         </div>

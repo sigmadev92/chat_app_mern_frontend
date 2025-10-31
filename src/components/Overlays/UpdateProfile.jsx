@@ -1,45 +1,48 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { usersURL } from "../../functions/urls/backendAPI";
 import { authActions } from "../../redux_toolkit/reducers/authReducer";
 import { useDispatch } from "react-redux";
 import { _default } from "../../functions/urls/images";
-const UpdateProfile = ({ user }) => {
-  const [profilePic, setProfilePic] = useState(null);
-  const [preview, setPreview] = useState(null);
-  const dispatch = useDispatch();
-  const handleChange = (e) => {
-    const file = e.target.files[0];
-    setProfilePic(file);
-    const objectUrl = URL.createObjectURL(file);
-    setPreview(objectUrl);
-  };
+import { usersURL } from "../../functions/urls/backendAPI";
+import genderRadioOptions, {
+  genderMap,
+} from "../../functions/static_data/genderRadio";
 
+const UpdateProfile = ({ user }) => {
+  const [formData, setFormData] = useState(user);
+  const dispatch = useDispatch();
+
+  const { fullName, gender, email, _id } = formData;
+  const handlChange = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!profilePic) {
-      toast.error("Please choose a profile picture");
-      return;
-    }
-    const formData = new FormData();
-    formData.append("profilePic", profilePic);
-    try {
-      const response = await fetch(`${usersURL}/profile-pic`, {
-        method: "PUT",
-        body: formData,
-        credentials: "include",
-      });
+    console.log(formData);
 
+    try {
+      const response = await fetch(
+        `${usersURL}/profile`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        },
+        "Content"
+      );
       if (!response.ok) {
-        toast.error("Something went wrong");
+        toast.error("Failed to update the details");
         return;
       }
       const data = await response.json();
-      console.log(data);
       if (data.success) {
-        dispatch(authActions.setProfilePic(data.imageUrl));
-        toast.success("Profile Pic changed successfully");
+        console.log(data.response);
+        dispatch(authActions.updateUser(data.response));
+        toast.success("Data Updated Successfully");
+        return;
       }
+      toast.error(data.message);
     } catch (error) {
       console.log(error);
       toast.error(error.message);
@@ -47,40 +50,65 @@ const UpdateProfile = ({ user }) => {
   };
   return (
     <section className="w-[100%] h-[100vh] bg-[#26252683] absolute top-0 left-0 flex justify-center items-center">
-      <div className="w-[95%] md:w-[50%] rounded-2xl outline-blue-300 outline-1 h-[80%] bg-white flex flex-col gap-[1rem] items-center justify-center">
-        {preview ? (
-          <div className="h-[200px] w-[200px]">
-            <img src={preview} alt="Preview" className="w-full h-full border" />
-          </div>
-        ) : (
-          <div className="h-[200px] w-[200px]">
-            <img
-              className="w-full h-full"
-              src={user.profilePic || _default.profile_Pic}
-              alt="Your image"
-            />
-          </div>
-        )}
-
+      <div className="w-[95%] md:w-[50%] rounded-2xl outline-blue-300 outline-1 h-[80%] bg-white flex flex-col gap-[1rem] ">
+        <p className="font-bold underline-offset-2 text-fuchsia-400 mx-auto">
+          User ID : {_id}
+        </p>
         <form
           onSubmit={handleSubmit}
-          encType="multipart/form-data"
-          className="flex flex-col gap-1"
+          encType="application/json"
+          className="text-[14px] flex flex-col gap-3 w-[60%] mx-auto shadow-blue-200 shadow-md p-2"
         >
-          <input
-            type="file"
-            name="profilePic"
-            id="profilePic"
-            className="hide"
-            accept=".jpg,.jpeg,.png"
-            onChange={handleChange}
-          />
-          <label
-            htmlFor="profilePic"
-            className="btn bg-blue-600 hover:bg-blue-700 text-white"
-          >
-            Choose a profile pic
-          </label>
+          <div className="flex justify-between items-center">
+            <label className="font-bold">Name</label>
+            <input
+              type="text"
+              name="fullName"
+              value={fullName}
+              onChange={handlChange}
+              className=" border-[1px] rounded-sm px-3"
+            />
+          </div>
+          <div className="flex justify-between items-center">
+            <label className="font-bold">Email</label>
+            <input
+              type="text"
+              name="email"
+              value={email}
+              disabled
+              className=" border-[1px] rounded-sm px-3"
+            />
+            {/* <LockIcon size={15} /> */}
+          </div>
+          <div className="flex justify-between">
+            <label className="font-bold">Gender</label>
+            <span className=" border-[1px] rounded-sm px-3">
+              {genderMap[gender]}
+            </span>
+          </div>
+          <div className="flex gap-2 ">
+            {genderRadioOptions.map((op, idx) => (
+              <div key={idx}>
+                <input
+                  type="radio"
+                  name="gender"
+                  value={op.value}
+                  id={op.name}
+                  className="hide"
+                  onChange={handlChange}
+                />
+                <label
+                  htmlFor={op.name}
+                  className={`btn text-[12px] ${
+                    op.value === gender ? "bg-blue-500" : "bg-red-400"
+                  }`}
+                >
+                  {op.label}
+                </label>
+              </div>
+            ))}
+          </div>
+
           <div className="flex gap-2">
             <button type="submit" className="btn bg-green-600 text-white">
               Update
