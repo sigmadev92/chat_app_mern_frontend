@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import Ask from "../Overlays/Ask";
 import { askSelector } from "../../redux_toolkit/reducers/AskReducer";
 import { useState } from "react";
-import Messages from "../Overlays/Messages/index.jsx";
+import Messages from "../Overlays/Messages";
 import Notes from "../Overlays/Notes";
 import Notifications from "../Overlays/Notifications";
 import FindPeople from "../Overlays/FindPeople";

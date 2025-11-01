@@ -3,7 +3,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
 import RegLogin from "./pages/RegLogin/RegLogin";
-import EditProfile from "./pages/EditProfile/EditProfile";
 import NotFound from "./pages/NotFound";
 import RecoverPswrd from "./pages/ForgotPassword/RecoverPswrd";
 import { Toaster } from "react-hot-toast";
@@ -17,6 +16,7 @@ import { useSelector } from "react-redux";
 import { initSocket } from "./webSockets/socketService";
 import { fetchUnseenMessages } from "./redux_toolkit/reducers/chatReducer";
 import { themeAction } from "./redux_toolkit/reducers/themeReducer";
+import PublicProfile from "./pages/PublicProfile/PublicProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ function App() {
         { index: true, element: <Home /> },
         { path: "action/:action_type", element: <RegLogin /> },
         { path: "password/recover", element: <RecoverPswrd /> },
-        { path: "public/profile/:userId", element: <EditProfile /> },
+        { path: "public/profile/:userId", element: <PublicProfile /> },
         { path: "dashboard", element: <Dashboard /> },
       ],
     },

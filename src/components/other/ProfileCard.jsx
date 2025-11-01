@@ -1,11 +1,16 @@
 import { IdCard, MailIcon, SquarePenIcon, UserPenIcon } from "lucide-react";
 
-import { authActions } from "../../redux_toolkit/reducers/authReducer";
-import { useDispatch } from "react-redux";
+import {
+  authActions,
+  authSelector,
+} from "../../redux_toolkit/reducers/authReducer";
+import { useDispatch, useSelector } from "react-redux";
 import { _default } from "../../functions/urls/images";
 
-const ProfileCard = ({ fullName, email, userId, profilePic }) => {
+const ProfileCard = () => {
   const dispatch = useDispatch();
+  const { user } = useSelector(authSelector);
+  const { fullName, email, _id: userId, profilePic } = user;
   const updateProfilePicBtn = () => {
     dispatch(authActions.setUpdateProfilePicDiv(true));
   };

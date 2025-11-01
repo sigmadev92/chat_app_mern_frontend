@@ -41,9 +41,12 @@ const chatSlice = createSlice({
         state.currentlyChattingTo.messages.push(message);
       } else {
         if (state.totalUnseenMessages[sender._id]) {
-          state.totalUnseenMessages[sender._id]++;
+          state.totalUnseenMessages[sender._id].messages.push(message);
         } else {
-          state.totalUnseenMessages[sender._id] = 1;
+          state.totalUnseenMessages[sender._id] = {
+            sender,
+            messages: [message],
+          };
         }
       }
     },

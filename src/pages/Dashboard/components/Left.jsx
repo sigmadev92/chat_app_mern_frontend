@@ -4,7 +4,7 @@ const Left = ({ user }) => {
   const { fullName, email, _id, profilePic } = user;
 
   return (
-    <div>
+    <div className="hidden md:block ">
       {!profilePic && (
         <p className="text-sm text-red-400">You don't have a profile pic yet</p>
       )}
